@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--指定配置文件,url,用户名和密码-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+<!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="${jdbc.max}"/> <!--最大连接数-->
+    </bean>
+    <!--声明的是mybatis提供的sqlsessionfactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--set注入,把数据库连接池赋值给了dataSource-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--
+        mybatis主配置文件的位置:cofigLocation是spring中读取配置文件
+        Resources类型:value指定文件的位置,使用classpath:
+        -->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <!--配置实体类-->
+        <property name="typeAliasesPackage" value="com.eleven.domain"/>
+    </bean>
+    <!--创建dao对象,使用Sqlsession的getMapper(Student.class)-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"><!--内部调用getMapper()生成每个dao接口的代理对象-->
+        <!--指定sqlSessionFactory对象的id-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--指定包名,dao接口的包名,扫描所有的接口,
+        把每个接口都执行一遍getMapper,得到接口的dao,放到spring容器
+        创建的dao对象默认是接口首字母小写
+        -->
+        <property name="basePackage" value="com.eleven.dao"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd"><!--约束文件名称-->
+<!--环境配置:数据库的连接信息-->
+<configuration>
+    <!--sql执行日志设置-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+   <!-- <typeAliases>
+
+        <package name="com.eleven.domain"/>
+    </typeAliases>-->
+
+    <!--配置分页查询插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+
+    <!--<mappers>
+        &lt;!&ndash;第一种方式&ndash;&gt;
+        &lt;!&ndash;<mapper resource="com/eleven/dao/EmpDao.xml"/>&ndash;&gt;
+        &lt;!&ndash;第二种&ndash;&gt;
+        <package name="com.eleven.dao"/>
+
+    </mappers>-->
+
+</configuration>
+        <!--mybatis的主配置文件-->
