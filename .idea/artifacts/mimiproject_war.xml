@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mimiproject:war">
+    <output-path>$PROJECT_DIR$/mimiproject/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>mimiproject</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="mimiproject-1.0.war">
+      <element id="artifact" artifact-name="mimiproject:war exploded" />
+    </root>
+  </artifact>
+</component>
